@@ -2,9 +2,7 @@ const fs = require("fs/promises");
 const path = require("path");
 
 const { nanoid } = require("nanoid");
-// import { nanoid } from "nanoid";
-
-// console.log(nanoid);
+// npm install nanoid@3.3.4
 
 const contactsPath = path.join(__dirname, "./db/contacts.json");
 console.log(contactsPath);
