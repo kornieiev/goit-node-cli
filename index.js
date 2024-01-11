@@ -1,16 +1,5 @@
-const contacts = require("./contacts"); // пакет для коректного прописування маршруту до файлів. входить до стандартного пакету node.js
-
-// import { program } from "commander";
-// program
-//   .option("-a, --action <type>", "choose action")
-//   .option("-i, --id <type>", "user id")
-//   .option("-n, --name <type>", "user name")
-//   .option("-e, --email <type>", "user email")
-//   .option("-p, --phone <type>", "user phone");
-
-// program.parse();
-
-// const options = program.opts();
+const contacts = require("./contacts");
+const { program } = require("commander");
 
 // TODO: рефакторити
 async function invokeAction({ action, id, name, email, phone }) {
@@ -28,8 +17,8 @@ async function invokeAction({ action, id, name, email, phone }) {
       return console.log("newContact:", newContact);
 
     case "remove":
-      // ... id
-      break;
+      const deletedContact = await contacts.removeContact(id);
+      return console.log("deletedContact:", deletedContact);
 
     default:
       console.warn("\x1B[31m Unknown action type!");
@@ -44,5 +33,22 @@ async function invokeAction({ action, id, name, email, phone }) {
 //   email: "petro@sobaka.ua",
 //   phone: "zero-zero-seven",
 // });
+// invokeAction({
+//   action: "remove",
+//   id: "IjDp2V5MQhfrEHp3lQvrW",
+// });
 
 // invokeAction(options);
+
+program
+  .option("-a, --action, <type>")
+  .option("-i, --id, <type>")
+  .option("-n, --name, <type>")
+  .option("-e, --email, <type>")
+  .option("-p, --phone, <type>");
+
+program.parse();
+
+const options = program.opts();
+console.log("options:", options);
+invokeAction(options);
